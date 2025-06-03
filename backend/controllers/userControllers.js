@@ -9,7 +9,7 @@ export const createUser = async (req, res) => {
         const result = await pool.query(
             `INSERT INTO users (username, email, password)
        VALUES ($1, $2, $3)
-       RETURNING id, firstname, lastname, email, role`,
+       RETURNING id, username, email`,
             [username, email, password || "user"]
         );
         res.status(201).json(result.rows[0]);
