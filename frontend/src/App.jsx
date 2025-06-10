@@ -5,8 +5,8 @@ import Layout from './pages/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
-import './App.css'
-
+import './App.css';
+import './index.css';
 
 function App() {
   return (

@@ -2,6 +2,9 @@ import express from "express";
 import pool from "../db/pool.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const router = express.Router();
 
@@ -60,6 +63,120 @@ router.post(
     }
   })
 );
+
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: Login a user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [email, password]
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Successful login
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *       401:
+ *         description: Invalid credentials
+ *       500:
+ *         description: Server error
+ */
+
+// Login route
+router.post(
+  "/login",
+  asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password required" });
+    }
+
+    try {
+      const result = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+
+      const user = result.rows[0];
+
+      if (!user) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordValid) {
+        return res.status(401).json({ message: "Invalid email or password" });
+      }
+
+      const token = jwt.sign(
+        { id: user.id, email: user.email, username: user.username },
+        process.env.JWT_SECRET || "your_jwt_secret",
+        { expiresIn: "1h" }
+      );
+
+      res.json({
+        message: "Login successful",
+        token,
+        user: { id: user.id, email: user.email, username: user.username },
+      });
+    } catch (err) {
+      console.error("Error logging in user:", err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  })
+);
+
+// //login route
+// router.post(
+//   "/login",
+//   asyncHandler(async (req, res) => {
+//     const { email, password } = req.body;
+
+//     try {
+//       const result = await pool.query(
+//         "SELECT id, username, email, password FROM users WHERE email = $1",
+//         [email]
+//       );
+
+//       if (result.rows.length === 0) {
+//         return res.status(401).json({error: "Invaild email or password"});
+//       }
+
+//       const user = result.rows[0];
+//       const isMatch = await bcrypt.compare(password, user.password);
+
+//       if (!isMatch) {
+//         return res.status(401).json({error: "Invaild email or password"});
+//       }
+
+//       const token = jwt.sign(
+//         { id: user.id, username: user.username, email: user.email },
+//         JWT_SECRET,
+//         { expiresIn: "1h"}
+//       );
+
+//       res.status(200).json({ token });
+//     } catch (err) {
+//       console.error("Error loggin in user:", err);
+//       res.status(500).json({ error: " Error loggin in user "});
+//     }
+//   })
+// );
 
 /**
  * @swagger

@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import NotesCard from './NotesCard';
 
-const NotesDisplay = () => {
-  const [notes, setNotes] = useState([]);
+const NotesDisplay = ({notes}) => {
+  // const [notes, setNotes] = useState([]);
 
-  const fetchNotes = async () => {
-    try {
-      const res = await fetch('http://localhost:3000/notes'); // Adjust if needed
-      const data = await res.json();
-      setNotes(data);
-    } catch (error) {
-      console.error('Failed to fetch notes:', error);
-    }
-  };
+  // const fetchNotes = async () => {
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     const res = await fetch('http://localhost:3000/notes', {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }); 
+  //     const data = await res.json();
+  //     setNotes(data);
+  //   } catch (error) {
+  //     console.error('Failed to fetch notes:', error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchNotes();
-  }, []);
+  // useEffect(() => {
+  //   fetchNotes();
+  // }, []);
 
   const handleEdit = (note) => {
     console.log('Edit note:', note);
@@ -27,7 +32,7 @@ const NotesDisplay = () => {
   };
 
   return (
-    <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className='flex flex-wrap justify-center'>
       {notes.map((note) => (
         <NotesCard key={note.id} note={note} onEdit={handleEdit} onDelete={handleDelete} />
       ))}

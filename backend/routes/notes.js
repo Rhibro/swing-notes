@@ -1,14 +1,23 @@
 import express from "express";
 import pool from "../db/pool.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
+import authenticateToken from "../middlewares/authMiddleware.js";
+
 
 const router = express.Router();
 
 // GET all notes
 router.get(
   "/",
-  asyncHandler(async (_req, res) => {
-    const result = await pool.query("SELECT * FROM notes ORDER BY created_at DESC");
+  authenticateToken,
+  asyncHandler(async (req, res) => {
+    const user_id = req.user.id;
+
+    const result = await pool.query(
+      "SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at DESC",
+      [user_id]
+    );
+
     res.status(200).json(result.rows);
   })
 );
@@ -34,8 +43,14 @@ router.get(
 // POST create new note
 router.post(
   "/",
+   authenticateToken,
   asyncHandler(async (req, res) => {
-    const { user_id, title, content } = req.body;
+    const { title, content } = req.body;
+    const user_id = req.user.id; // Extracted from the JWT
+
+    if (!title || !content) {
+      return res.status(400).json({ message: "Title and content are required" });
+    }
 
     const result = await pool.query(
       `INSERT INTO notes (user_id, title, content, created_at, updated_at)
