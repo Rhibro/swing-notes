@@ -44,6 +44,7 @@ section {
 form {
   max-width: 30rem;
   min-width: 30rem;
+  min-height: 30rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -62,4 +63,16 @@ label {
   max-width: 5rem;
   margin: 1rem;
   cursor: pointer;
+}
+
+.center-modal {
+   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50; 
 }

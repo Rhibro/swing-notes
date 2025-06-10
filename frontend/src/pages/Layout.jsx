@@ -5,9 +5,9 @@ const Layout = () => {
     <>
       <nav className="w-full flex justify-end p-4 pr-8">
         <ul className="flex gap-6 list-none">
-          <li className="p-2">
+          {/* <li className="p-2">
             <Link className="no-underline" to="/"></Link>
-          </li>
+          </li> */}
           <li>
             <Link className="no-underline" to="/login">Logout</Link>
           </li>

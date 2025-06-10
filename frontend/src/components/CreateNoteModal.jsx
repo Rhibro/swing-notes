@@ -44,6 +44,7 @@ const CreateNoteModal = ({isOpen, onClose, OnCreate, onEdit, noteToEdit}) => {
     if (!isOpen) return null;
 
     return (
+        <div className="center-modal">
         <form onSubmit={handleSubmit}>
              <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md space-y-4">
                 <h2 className="text-xl font-semibold">
@@ -83,6 +84,7 @@ const CreateNoteModal = ({isOpen, onClose, OnCreate, onEdit, noteToEdit}) => {
                 </div>
             </div>
         </form>
+        </div>
     )
 }
 
