@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Button from "./Button";
 
-const CreateNoteModal = ({isOpen, onClose, OnCreate, noteToEdit}) => {
+const CreateNoteModal = ({isOpen, onClose, OnCreate, onEdit, noteToEdit}) => {
     const [form, setFrom] = useState({
         title: "",
         content: "",
@@ -32,15 +32,11 @@ const CreateNoteModal = ({isOpen, onClose, OnCreate, noteToEdit}) => {
     };
 
     const handleSubmit = (e) => {
-        const note = {
-            id: Date.now(),
-            createdAt: new Date().toISOString(),
-            ...form,
-        };
-        e.preventDefault();
-
-        if (OnCreate) {
-            OnCreate(note);
+         e.preventDefault();
+        if (noteToEdit && onEdit) {
+            onEdit({ ...noteToEdit, ...form }); // Pass the note's id and updated fields
+        } else if (OnCreate) {
+            OnCreate(form);
         }
         onClose();
     };

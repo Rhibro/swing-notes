@@ -12,10 +12,10 @@ const NotesCard = ({ note, onEdit, onDelete }) => {
         <p>Uppdated: {new Date(note.updated_at).toLocaleString()}</p>
       </div>
       <div className="flex justify-evenly space-x-2">
-        <Button variant="outline" onClick={() => onEdit(note)}>
+        <Button variant="outline" onClick={onEdit}>
           Edit
         </Button>
-        <Button variant="destructive" onClick={() => onDelete(note.id)}>
+        <Button variant="destructive" onClick={onDelete}>
           Delete
         </Button>
       </div>
