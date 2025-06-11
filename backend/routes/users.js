@@ -44,7 +44,7 @@ const router = express.Router();
 
 // create a new user
 router.post(
-  "/",
+  "/register",
   asyncHandler(async (req, res) => {
     const { username, email, password } = req.body;
 

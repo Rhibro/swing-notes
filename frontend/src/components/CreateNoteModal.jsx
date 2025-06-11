@@ -56,6 +56,7 @@ const CreateNoteModal = ({isOpen, onClose, OnCreate, onEdit, noteToEdit}) => {
                     <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
                     <input
                         id="title"
+                        maxLength={50}
                         className="w-full border rounded p-2"
                         placeholder="Title"
                         name="title"
@@ -69,6 +70,7 @@ const CreateNoteModal = ({isOpen, onClose, OnCreate, onEdit, noteToEdit}) => {
                     <label htmlFor="content" className="block text-sm font-medium text-gray-700">Content</label>
                     <textarea
                         id="content"
+                        maxLength={300}
                         className="w-full border rounded p-2"
                         placeholder="Content"
                         name="content"

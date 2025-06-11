@@ -77,3 +77,11 @@ label {
   z-index: 50; 
 }
 
+input {
+  margin-bottom: 1rem;
+  max-width: 40rem;
+}
+
+textarea {
+  min-height: 6rem;
+}

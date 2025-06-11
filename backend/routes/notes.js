@@ -3,8 +3,35 @@ import pool from "../db/pool.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import authenticateToken from "../middlewares/authMiddleware.js";
 
-
 const router = express.Router();
+
+/**
+ * @swagger
+ * tags:
+ *   name: Notes
+ *   description: Notes management
+ */
+
+/**
+ * @swagger
+ * /notes:
+ *   get:
+ *     summary: Get all notes for the authenticated user
+ *     tags: [Notes]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of notes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Note'
+ *       401:
+ *         description: Unauthorized
+ */
 
 // GET all notes
 router.get(
@@ -21,6 +48,31 @@ router.get(
     res.status(200).json(result.rows);
   })
 );
+
+/**
+ * @swagger
+ * /notes/{id}:
+ *   get:
+ *     summary: Get a note by ID
+ *     tags: [Notes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Note retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Note'
+ *       400:
+ *         description: Invalid ID
+ *       404:
+ *         description: Note not found
+ */
 
 // GET note by ID
 router.get(
@@ -39,6 +91,41 @@ router.get(
     res.status(200).json(result.rows[0]);
   })
 );
+
+/**
+ * @swagger
+ * /notes:
+ *   post:
+ *     summary: Create a new note
+ *     tags: [Notes]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *               - content
+ *             properties:
+ *               title:
+ *                 type: string
+ *               content:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Note created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Note'
+ *       400:
+ *         description: Missing title or content
+ *       401:
+ *         description: Unauthorized
+ */
 
 // POST create new note
 router.post(
@@ -62,6 +149,42 @@ router.post(
     res.status(201).json(result.rows[0]);
   })
 );
+
+/**
+ * @swagger
+ * /notes/{id}:
+ *   put:
+ *     summary: Update a note by ID
+ *     tags: [Notes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               content:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Note updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Note'
+ *       400:
+ *         description: Invalid ID
+ *       404:
+ *         description: Note not found
+ */
 
 // PUT update a note
 router.put(
@@ -91,6 +214,36 @@ router.put(
     res.status(200).json(result.rows[0]);
   })
 );
+
+/**
+ * @swagger
+ * /notes/{id}:
+ *   delete:
+ *     summary: Delete a note by ID
+ *     tags: [Notes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Note deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 note:
+ *                   $ref: '#/components/schemas/Note'
+ *       400:
+ *         description: Invalid ID
+ *       404:
+ *         description: Note not found
+ */
 
 // DELETE note
 router.delete(
