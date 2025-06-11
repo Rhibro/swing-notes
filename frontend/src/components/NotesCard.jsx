@@ -2,7 +2,6 @@ import React from 'react';
 import Button from './Button'; // Adjust path as needed
 
 const NotesCard = ({ note, onEdit, onDelete }) => {
-    if (!note) return <h2>Looks like you don't have any notes...</h2>
   return (
     <section className="bg-green-300 p-8 rounded-2xl shadow-md space-y-2">
       <h3 className="text-lg font-semibold text-black">{note.title}</h3>

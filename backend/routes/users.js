@@ -141,43 +141,6 @@ router.post(
   })
 );
 
-// //login route
-// router.post(
-//   "/login",
-//   asyncHandler(async (req, res) => {
-//     const { email, password } = req.body;
-
-//     try {
-//       const result = await pool.query(
-//         "SELECT id, username, email, password FROM users WHERE email = $1",
-//         [email]
-//       );
-
-//       if (result.rows.length === 0) {
-//         return res.status(401).json({error: "Invaild email or password"});
-//       }
-
-//       const user = result.rows[0];
-//       const isMatch = await bcrypt.compare(password, user.password);
-
-//       if (!isMatch) {
-//         return res.status(401).json({error: "Invaild email or password"});
-//       }
-
-//       const token = jwt.sign(
-//         { id: user.id, username: user.username, email: user.email },
-//         JWT_SECRET,
-//         { expiresIn: "1h"}
-//       );
-
-//       res.status(200).json({ token });
-//     } catch (err) {
-//       console.error("Error loggin in user:", err);
-//       res.status(500).json({ error: " Error loggin in user "});
-//     }
-//   })
-// );
-
 /**
  * @swagger
  * /users:
