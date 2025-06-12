@@ -81,7 +81,7 @@ export default function LoginForm() {
         </div>
       )}
 
-      <div>
+      <div className="labelInput">
         <label className="">Email</label>
         <input
           type="email"
@@ -92,7 +92,7 @@ export default function LoginForm() {
         />
       </div>
 
-      <div>
+      <div className="labelInput">
         <label className="">Password</label>
         <input
           type="password"
@@ -111,14 +111,14 @@ export default function LoginForm() {
         {isRegister ? (
           <span>
             Already have an account?{" "}
-            <button type="button" className="text-blue-500 underline" onClick={() => setIsRegister(false)}>
+            <button type="button" className="formBtn" onClick={() => setIsRegister(false)}>
               Login
             </button>
           </span>
         ) : (
           <span>
             Don't have an account?{" "}
-            <button type="button" className="text-blue-500 underline" onClick={() => setIsRegister(true)}>
+            <button type="button" className="formBtn" onClick={() => setIsRegister(true)}>
               Create Account
             </button>
           </span>

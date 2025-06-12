@@ -19,7 +19,7 @@ const Layout = () => {
           </li> */}
           {location.pathname !== "/" && "/*" && (
             <li>
-            <button onClick={handleLogout}>
+            <button className="formBtn" onClick={handleLogout}>
               <Link className="no-underline" to="/login">Logout</Link>
             </button>
           </li>

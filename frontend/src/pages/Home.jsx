@@ -116,7 +116,7 @@ const Home = () => {
         className="border rounded px-3 py-2 my-4 w-full max-w-md"
       />
       <button
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        className="formBtn"
         onClick={openNewNoteModal}
       >
         New Note
