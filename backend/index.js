@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pool from './db/pool.js';
+import swaggerUI from 'swagger-ui-express';
+import swaggerDocument from './swagger-export.js';
 
 dotenv.config();
 const app = express();
@@ -19,6 +21,7 @@ pool.query('SELECT NOW()')
 // middleware
 app.use(cors());
 app.use(express.json());
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // routes
 import userRoutes from "./routes/users.js";
@@ -32,13 +35,8 @@ app.get('/', (req, res) => {
   res.send('Swing-Notes API is running');
 });
 
-// global error handler
-// app.use((err, req, res, next) => {
-//   console.error("Unhandled error:", err.stack);
-//   res.status(500).json({message: "Internal server error", error: err.message});
-// });
-
 // start server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log('Swagger docs at http://localhost:3000/api-docs');
 });

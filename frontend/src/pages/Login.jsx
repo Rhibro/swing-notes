@@ -69,7 +69,7 @@ export default function LoginForm() {
       {error && <p className="text-red-600 text-sm">{error}</p>}
 
        {isRegister && (
-        <div>
+        <div className="labelInput">
           <label>Username</label>
           <input
             type="text"

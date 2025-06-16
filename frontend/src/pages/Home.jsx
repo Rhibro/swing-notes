@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import NotesCard from "../components/NotesCard";
 import NotesDisplay from "../components/NotesDisplay";
 import CreateNoteModal from "../components/CreateNoteModal";
 
@@ -13,10 +12,37 @@ const Home = () => {
   const username = userObj?.user?.username;
 
   const [search, setSearch] = useState("");
-  const filteredNotes = notes.filter(note =>
-  note.title.toLowerCase().includes(search.toLowerCase())
-  );
+ 
+  // search notes
+  useEffect(() => {
+  const fetchFilteredNotes = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
+      let url = "http://localhost:3000/notes";
+      if (search.trim()) {
+        url = `http://localhost:3000/notes/search?query=${encodeURIComponent(search)}`;
+      }
+
+      const res = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Failed to fetch notes");
+      const data = await res.json();
+      setNotes(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("Search error:", error);
+      setNotes([]);
+    }
+  };
+
+  fetchFilteredNotes();
+}, [search]);
+
+// GET all notes for specific user
   const fetchNotes = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -38,6 +64,7 @@ const Home = () => {
     fetchNotes();
   }, []);
 
+  // create a note
   const handleCreateNote = async (note) => {
     try {
       const token = localStorage.getItem("token");
@@ -56,6 +83,7 @@ const Home = () => {
     }
   };
 
+  // edit a note
   const handleEditNote = async (note) => {
     try {
       const token = localStorage.getItem("token");
@@ -74,6 +102,7 @@ const Home = () => {
     }
   };
 
+  // delete a note
   const handleDeleteNote = async (id) => {
     try {
       const token = localStorage.getItem("token");
@@ -129,7 +158,7 @@ const Home = () => {
         noteToEdit={noteToEdit}
       />
       <NotesDisplay
-        notes={filteredNotes}
+        notes={notes}
         onEdit={openEditNoteModal}
         onDelete={handleDeleteNote}
       />

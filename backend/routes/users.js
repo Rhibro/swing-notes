@@ -8,40 +8,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const router = express.Router();
 
-/**
- * @swagger
- * tags:
- *   name: Users
- *   description: User management endpoints
- */
-
-/**
- * @swagger
- * /users:
- *   post:
- *     summary: Create a new user
- *     tags: [Users]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required: [username, email, password]
- *             properties:
- *               username:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *     responses:
- *       201:
- *         description: User created successfully
- *       500:
- *         description: Error creating user
- */
-
 // create a new user
 router.post(
   "/register",
@@ -63,40 +29,6 @@ router.post(
     }
   })
 );
-
-/**
- * @swagger
- * /users/login:
- *   post:
- *     summary: Login a user
- *     tags: [Users]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required: [email, password]
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *     responses:
- *       200:
- *         description: Successful login
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- *       401:
- *         description: Invalid credentials
- *       500:
- *         description: Server error
- */
 
 // Login route
 router.post(
@@ -141,25 +73,6 @@ router.post(
   })
 );
 
-/**
- * @swagger
- * /users:
- *   get:
- *     summary: Get all users
- *     tags: [Users]
- *     responses:
- *       200:
- *         description: A list of users
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/User'
- *       500:
- *         description: Error fetching users
- */
-
 // get all users
 router.get(
   "/",
@@ -175,31 +88,6 @@ router.get(
     }
   })
 );
-
-/**
- * @swagger
- * /users/{id}:
- *   get:
- *     summary: Get a user by ID
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: User found
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       404:
- *         description: User not found
- *       500:
- *         description: Error fetching user
- */
 
 // get a specific user by id
 router.get(
@@ -224,33 +112,6 @@ router.get(
     }
   })
 );
-
-/**
- * @swagger
- * /users/{id}:
- *   put:
- *     summary: Update a user
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/User'
- *     responses:
- *       200:
- *         description: User updated successfully
- *       404:
- *         description: User not found
- *       500:
- *         description: Error updating user
- */
 
 // update a user
 router.put(
@@ -280,36 +141,6 @@ router.put(
   })
 );
 
-/**
- * @swagger
- * /users/{id}:
- *   delete:
- *     summary: Delete a user
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: User deleted successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                 user:
- *                   $ref: '#/components/schemas/User'
- *       404:
- *         description: User not found
- *       500:
- *         description: Error deleting user
- */
-
 // delete a specific user
 router.delete(
   "/:id",
@@ -336,9 +167,3 @@ router.delete(
 
 export default router;
 
-
-//  {
-//         "id": 1,
-//         "username": "testuser",
-//         "email": "testuser@example.com"
-//     }

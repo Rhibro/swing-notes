@@ -8,7 +8,7 @@ const NotesCard = ({ note, onEdit, onDelete }) => {
       <p className="text-sm text-gray-600">{note.content}</p>
       <div className="text-xs text-gray-500">
         <p>Created: {new Date(note.created_at).toLocaleString()}</p>
-        <p>Uppdated: {new Date(note.updated_at).toLocaleString()}</p>
+        <p>Updated: {new Date(note.updated_at).toLocaleString()}</p>
       </div>
       <div className="flex justify-evenly space-x-2">
         <Button variant="outline" onClick={onEdit}>
