@@ -15,9 +15,9 @@ Swing-Notes is a full-stack note-taking application that allows users to securel
 
 ---
 
-![Skärmbild 2025-06-16 102948](https://github.com/user-attachments/assets/060aae54-bdec-466c-81fe-ca617da1bd77)
-
 ![Skärmbild 2025-06-16 103010](https://github.com/user-attachments/assets/80bf8d88-d5a5-4ad7-9853-7e5de3214a2a)
+
+![Skärmbild 2025-06-16 102948](https://github.com/user-attachments/assets/060aae54-bdec-466c-81fe-ca617da1bd77)
 
 ## 🛠️ Tech Stack
 
