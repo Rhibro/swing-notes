@@ -23,7 +23,9 @@ Swing-Notes is a full-stack note-taking application that allows users to securel
 
 **Frontend:**
 - JavaScript
-- HTML/CSS (or any framework you used — update here if needed)
+- React
+- Vite
+- HTML/CSS 
 
 **Backend:**
 - Node.js
